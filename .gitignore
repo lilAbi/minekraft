@@ -1,0 +1,4 @@
+.gitignore
+bindings
+.idea
+cmake-build-release-clang
