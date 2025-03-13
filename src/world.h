@@ -4,11 +4,12 @@
 #include "glm/glm.hpp"
 #include "absl/container/flat_hash_map.h"
 #include "chunk.h"
+#include "chunkBuilder.h"
 #include "utility.h"
 
 
-constexpr int CHUNK_SIZE_X = 18;
-constexpr int CHUNK_SIZE_Z = 18;
+constexpr int WORLD_SIZE_X = 18;
+constexpr int WORLD_SIZE_Z = 18;
 constexpr int VIEW_DISTANCE = 9;
 
 
@@ -32,7 +33,8 @@ private:
   glm::vec2 playerLastChunkCoord{0,0};
   //container for world chunks
   absl::flat_hash_map<glm::vec2, Chunk, Vec2Hasher> chunkContainer;
-
+  //not so factory class to
+  ChunkBuilder chunkBuilder;
 };
 
 #endif //WORLD_H

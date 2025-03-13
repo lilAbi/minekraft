@@ -1,11 +1,15 @@
 #ifndef RESOURCEMANAGER_H
 #define RESOURCEMANAGER_H
 
-#include "utility.h"
-#include "mesh.h"
 #include "glm/glm.hpp"
 #include "absl/container/flat_hash_map.h"
 #include "absl/hash/hash.h"
+#include "utility.h"
+#include "mesh.h"
+#include "world.h"
+#include "chunk.h"
+
+typedef std::array<int, CHUNK_HEIGHT*CHUNK_WIDTH*CHUNK_LENGTH> BlockVec;
 
 class ResourceManager {
 public:
@@ -13,19 +17,23 @@ public:
   ResourceManager& operator=(const ResourceManager&) = delete;
   static ResourceManager& getInstance() { static ResourceManager instance; return instance; }
 
+  //initialize subsystems and reserve space
   bool init();
 
-  bool createBlockResource(glm::vec2);
+  //adds a mesh element, ideally already contains the data
+  bool addMeshElement(glm::vec2 chunkPos, Mesh mesh);
 
-  bool getBlockResource(glm::vec2);
+  //returns the mesh element at key vec
+  Mesh* getMeshElement(glm::vec2 chunkPos);
+  //returns the array object containing these
+  BlockVec* getBlockArr(glm::vec2 chunkPos);
 
 private:
-  ResourceManager() = default;
+  ResourceManager() { meshContainer.reserve(WORLD_SIZE_X * WORLD_SIZE_Z); blockContainer.reserve(WORLD_SIZE_X * WORLD_SIZE_Z); }
   ~ResourceManager() = default;
 
   absl::flat_hash_map<glm::vec2, Mesh, Vec2Hasher> meshContainer{};
-  absl::flat_hash_map<glm::vec2, std::array<int, 8*8*8>, Vec2Hasher> blockContainer{};
-
+  absl::flat_hash_map<glm::vec2, BlockVec, Vec2Hasher> blockContainer{};
 };
 
 

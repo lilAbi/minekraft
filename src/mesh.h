@@ -4,11 +4,8 @@
 #include <vector>
 #include <glm/glm.hpp>
 
-class Mesh {
-public:
-    void reset();
-private:
-    std::vector<glm::vec3> vecs;
+struct Mesh {
+    std::vector<glm::vec3> vertexData;
 };
 
 
