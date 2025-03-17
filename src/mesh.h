@@ -4,7 +4,8 @@
 #include <vector>
 #include <glm/glm.hpp>
 
-struct Mesh {
+class Mesh {
+public:
     std::vector<glm::vec3> vertexData;
 };
 

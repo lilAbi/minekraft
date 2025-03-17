@@ -6,13 +6,6 @@
 #include "chunk.h"
 #include "chunkBuilder.h"
 #include "utility.h"
-
-
-constexpr int WORLD_SIZE_X = 18;
-constexpr int WORLD_SIZE_Z = 18;
-constexpr int VIEW_DISTANCE = 9;
-
-
 //#include
 
 class World {
@@ -24,13 +17,13 @@ public:
   bool init();
 
 private:
-  glm::vec2 calculateLastChunkCoord(glm::vec3 playerPos);
+  glm::vec3 calculateChunkCoord(glm::vec3 playerPos);
 
   bool mapChunkPosToContainerIndex(glm::vec2 genChunk, glm::vec2& currChunk);
 
 private:
   //keep track of players last chunk coord they are in
-  glm::vec2 playerLastChunkCoord{0,0};
+  glm::vec3 playerLastChunkCoord{-1,-1, -1};
   //container for world chunks
   absl::flat_hash_map<glm::vec2, Chunk, Vec2Hasher> chunkContainer;
   //not so factory class to

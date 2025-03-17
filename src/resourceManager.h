@@ -6,8 +6,6 @@
 #include "absl/hash/hash.h"
 #include "utility.h"
 #include "mesh.h"
-#include "world.h"
-#include "chunk.h"
 
 typedef std::array<int, CHUNK_HEIGHT*CHUNK_WIDTH*CHUNK_LENGTH> BlockVec;
 
@@ -32,6 +30,7 @@ private:
   ResourceManager() { meshContainer.reserve(WORLD_SIZE_X * WORLD_SIZE_Z); blockContainer.reserve(WORLD_SIZE_X * WORLD_SIZE_Z); }
   ~ResourceManager() = default;
 
+  //should be storing indices to the chunk position, which is basically value/chunk_size
   absl::flat_hash_map<glm::vec2, Mesh, Vec2Hasher> meshContainer{};
   absl::flat_hash_map<glm::vec2, BlockVec, Vec2Hasher> blockContainer{};
 };

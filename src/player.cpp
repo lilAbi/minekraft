@@ -4,7 +4,7 @@
 
 void Player::tick(double dt) {
     deltaTime = dt;
-    spdlog::info("Player position: {} {} {}", playerPosition.x, playerPosition.y, playerPosition.z);
+    //spdlog::info("Player position: {} {} {}", playerPosition.x, playerPosition.y, playerPosition.z);
 }
 
 bool Player::onKeyAction(GLFWwindow* window, int key, int scancode, int action, int mods) {
