@@ -15,6 +15,8 @@ bool Application::init() {
     }
 
     //initialize renderer
+    renderer.init();
+
 
     //load resources
 
@@ -22,10 +24,11 @@ bool Application::init() {
     //generate initial terrain
 
     //initialize the player and camera
-
     inputHandler.addKeyListener(this, 100);
     inputHandler.addKeyListener(&player, 100);
     inputHandler.addMouseListener(&player, 100);
+
+    //set app to running
     running = true;
     
     return true;
@@ -65,6 +68,14 @@ void Application::tick(const double deltaTime) {
 }
 
 void Application::render() {
+    //Determine visible chunks via culling
+    std::vector<glm::vec2> visibleChunks = world.getViewableChunks();
+
+    //pass
+    renderer.draw(player, window, std::move(visibleChunks));
+
+    //renderer.draw(visibleChunks);
+
 
 }
 

@@ -7,6 +7,7 @@
 #include "iListener.h"
 #include "player.h"
 #include "world.h"
+#include "renderer.h"
 
 
 class Application : public IKeyListener {
@@ -32,7 +33,7 @@ private:
     InputHandler inputHandler;
     Player player{{0.0, 10.0, 0.0}};
     World world;
-    //Renderer renderer;
+    Renderer renderer;
     //Player player;
 
     bool running = false;

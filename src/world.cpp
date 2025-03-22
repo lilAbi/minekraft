@@ -1,13 +1,7 @@
-
-
 #include "world.h"
 
-#include <spdlog/spdlog.h>
-
 bool World::init() {
-
     chunkContainer.reserve(WORLD_SIZE_X*WORLD_SIZE_Z);
-
     return true;
 }
 
@@ -46,10 +40,33 @@ void World::tick(glm::vec3 playerPos) {
 
 }
 
-glm::vec3 World::calculateChunkCoord(glm::vec3 playerPos) {
-    return glm::vec3{std::floor(playerPos.x/CHUNK_LENGTH), 0,std::floor(playerPos.z/CHUNK_WIDTH) };
+std::vector<glm::vec2> World::getViewableChunks() {
+    //container to hold coordinates of the viewable chunks
+    std::vector<glm::vec2> viewableChunks;
+    viewableChunks.reserve(size_t{WORLD_SIZE_X*WORLD_SIZE_Z});
+
+    //iterate over square region defined by view distance
+    for (int x{-VIEW_DISTANCE}; x <= VIEW_DISTANCE; x++) {
+        for (int z{-VIEW_DISTANCE}; z <= VIEW_DISTANCE; z++) {
+            //calculate the chunk's coordinate point to generate
+            glm::vec3 genChunk{playerLastChunkCoord.x + static_cast<float>(x), 0, playerLastChunkCoord.z + static_cast<float>(z)};
+
+            //if the chunk falls under the view distance, generate or load it
+            if (std::sqrt(x*x + z*z) < VIEW_DISTANCE) {
+                //calculate the index of the chunk in the container
+                const glm::vec3 index = genChunk - playerLastChunkCoord;
+                //add coordinate to the container
+                viewableChunks.emplace_back(index.x, index.z);
+
+            }
+
+        }
+    }
+
+    //nrvo should be invoked here
+    return viewableChunks;
 }
 
-bool World::mapChunkPosToContainerIndex(glm::vec2 genChunk, glm::vec2 &currChunk) {
-    return false;
+glm::vec3 World::calculateChunkCoord(glm::vec3 playerPos) {
+    return glm::vec3{std::floor(playerPos.x/CHUNK_LENGTH), 0,std::floor(playerPos.z/CHUNK_WIDTH) };
 }

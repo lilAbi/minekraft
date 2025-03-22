@@ -8,7 +8,6 @@ void Player::tick(double dt) {
 }
 
 bool Player::onKeyAction(GLFWwindow* window, int key, int scancode, int action, int mods) {
-
     const float velocity = camera.movementSpeed * static_cast<float>(deltaTime);
 
     if (key == GLFW_KEY_W && (action == GLFW_REPEAT || action == GLFW_PRESS))
@@ -24,13 +23,10 @@ bool Player::onKeyAction(GLFWwindow* window, int key, int scancode, int action, 
 }
 
 bool Player::onMouseButtonAction(GLFWwindow *window, int button, int action, int mods) {
-
-
     return false;
 }
 
 bool Player::onMousePositionAction(GLFWwindow *window, double xPos, double yPos) {
-
     const auto xPosIn = static_cast<float>(xPos);
     const auto yPosIn = static_cast<float>(yPos);
 

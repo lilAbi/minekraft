@@ -18,6 +18,8 @@ public:
 
     glm::vec3 getPlayerPosition() const {return playerPosition;}
 
+    glm::mat4 getViewMatrix() const {return camera.getViewMatrix(playerPosition);}
+
 private:
     Camera camera;
     glm::vec3 playerPosition{0.0, 0.0, 0.0};

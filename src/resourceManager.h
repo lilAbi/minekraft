@@ -9,6 +9,8 @@
 
 typedef std::array<int, CHUNK_HEIGHT*CHUNK_WIDTH*CHUNK_LENGTH> BlockVec;
 
+class Renderer;
+
 class ResourceManager {
 public:
   ResourceManager(const ResourceManager&) = delete;
@@ -23,10 +25,12 @@ public:
 
   //returns the mesh element at key vec
   Mesh* getMeshElement(glm::vec2 chunkPos);
+
   //returns the array object containing these
   BlockVec* getBlockArr(glm::vec2 chunkPos);
 
 private:
+  friend Renderer;
   ResourceManager() { meshContainer.reserve(WORLD_SIZE_X * WORLD_SIZE_Z); blockContainer.reserve(WORLD_SIZE_X * WORLD_SIZE_Z); }
   ~ResourceManager() = default;
 

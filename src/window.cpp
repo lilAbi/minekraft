@@ -1,5 +1,4 @@
 #include "window.h"
-
 #include "event.h"
 
 bool Window::init(EventManager* em) {
@@ -30,11 +29,15 @@ bool Window::init(EventManager* em) {
     glfwSetKeyCallback(glfwWindowPtr, keyCallback);
     glfwSetCursorPosCallback(glfwWindowPtr, cursorPositionCallback);
 
+    glfwSetInputMode(glfwWindowPtr, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+
     //glfwSetInputMode(glfwWindowPtr, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
     if(!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)){
         spdlog::info("Failed to initialize GLAD");
         return false;
     }
+
+    printf("OpenGL %d.%d\n", GLVersion.major, GLVersion.minor);
 
     eventManager = em;
     return true;

@@ -2,11 +2,11 @@
 
 #include "camera.h"
 
-Camera::Camera(glm::vec3 pos, glm::vec3 _up) : position{pos}, up{_up}, worldUp(_up) {
+Camera::Camera(glm::vec3 pos, glm::vec3 _up) : up{_up}, worldUp(_up) {
     updateCameraVectors();
 }
 
-glm::mat4 Camera::getViewMatrix() const {
+glm::mat4 Camera::getViewMatrix(glm::vec3 position) const {
     return glm::lookAt(position, position + front, up);
 }
 
